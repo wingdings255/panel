@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ITerminalOptions, Terminal } from 'xterm';
+import { Terminal, ITerminalOptions } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 import { SearchAddon } from 'xterm-addon-search';
 import { SearchBarAddon } from 'xterm-addon-search-bar';
 import { WebLinksAddon } from 'xterm-addon-web-links';
+import { ScrollDownHelperAddon } from '@/plugins/XtermScrollDownHelperAddon';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
 import { ServerContext } from '@/state/server';
 import styled from 'styled-components/macro';
@@ -44,6 +45,7 @@ const terminalProps: ITerminalOptions = {
     fontFamily: 'Menlo, Monaco, Consolas, monospace',
     rows: 30,
     theme: theme,
+    emitUserScrollEvents: true,
 };
 
 const TerminalDiv = styled.div`
@@ -71,6 +73,7 @@ export default () => {
     const searchAddon = new SearchAddon();
     const searchBar = new SearchBarAddon({ searchAddon });
     const webLinksAddon = new WebLinksAddon();
+    const scrollDownHelperAddon = new ScrollDownHelperAddon();
     const { connected, instance } = ServerContext.useStoreState(state => state.socket);
     const [ canSendCommands ] = usePermissions([ 'control.console' ]);
     const serverId = ServerContext.useStoreState(state => state.server.data!.id);
@@ -139,6 +142,7 @@ export default () => {
             terminal.loadAddon(searchAddon);
             terminal.loadAddon(searchBar);
             terminal.loadAddon(webLinksAddon);
+            terminal.loadAddon(scrollDownHelperAddon);
             fitAddon.fit();
 
             // Add support for capturing keys
@@ -213,7 +217,7 @@ export default () => {
                     maxHeight: '32rem',
                 }}
             >
-                <TerminalDiv id={'terminal'} ref={ref}/>
+                <TerminalDiv id={'terminal'} ref={ref} />
             </div>
             {canSendCommands &&
             <div css={tw`rounded-b bg-neutral-900 text-neutral-100 flex items-baseline`}>
