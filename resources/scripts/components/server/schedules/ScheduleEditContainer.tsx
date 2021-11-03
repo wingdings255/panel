@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Schedule } from '@/api/server/schedules/getServerSchedules';
+import { useHistory, useParams } from 'react-router-dom';
 import getServerSchedule from '@/api/server/schedules/getServerSchedule';
 import Spinner from '@/components/elements/Spinner';
 import FlashMessageRender from '@/components/FlashMessageRender';
@@ -23,10 +22,6 @@ interface Params {
     id: string;
 }
 
-interface State {
-    schedule?: Schedule;
-}
-
 const CronBox = ({ title, value }: { title: string; value: string }) => (
     <div css={tw`bg-neutral-700 rounded p-3`}>
         <p css={tw`text-neutral-300 text-sm`}>{title}</p>
@@ -46,9 +41,8 @@ const ActivePill = ({ active }: { active: boolean }) => (
 );
 
 export default () => {
-    const params = useParams() as Params;
     const history = useHistory();
-    const state: State = useLocation().state;
+    const { id: scheduleId } = useParams<Params>();
 
     const id = ServerContext.useStoreState(state => state.server.data!.id);
     const uuid = ServerContext.useStoreState(state => state.server.data!.uuid);
@@ -57,31 +51,31 @@ export default () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ showEditModal, setShowEditModal ] = useState(false);
 
-    const schedule = ServerContext.useStoreState(st => st.schedules.data.find(s => s.id === state.schedule?.id), isEqual);
+    const schedule = ServerContext.useStoreState(st => st.schedules.data.find(s => s.id === Number(scheduleId)), isEqual);
     const appendSchedule = ServerContext.useStoreActions(actions => actions.schedules.appendSchedule);
 
     useEffect(() => {
-        if (schedule?.id === Number(params.id)) {
+        if (schedule?.id === Number(scheduleId)) {
             setIsLoading(false);
             return;
         }
 
         clearFlashes('schedules');
-        getServerSchedule(uuid, Number(params.id))
+        getServerSchedule(uuid, Number(scheduleId))
             .then(schedule => appendSchedule(schedule))
             .catch(error => {
                 console.error(error);
                 clearAndAddHttpError({ error, key: 'schedules' });
             })
             .then(() => setIsLoading(false));
-    }, [ params ]);
+    }, [ scheduleId ]);
 
     const toggleEditModal = useCallback(() => {
         setShowEditModal(s => !s);
     }, []);
 
     return (
-        <PageContentBlock>
+        <PageContentBlock title={'Schedules'}>
             <FlashMessageRender byKey={'schedules'} css={tw`mb-4`}/>
             {!schedule || isLoading ?
                 <Spinner size={'large'} centered/>
@@ -153,7 +147,7 @@ export default () => {
                             }
                         </div>
                     </div>
-                    <EditScheduleModal visible={showEditModal} schedule={schedule} onDismissed={toggleEditModal}/>
+                    <EditScheduleModal visible={showEditModal} schedule={schedule} onModalDismissed={toggleEditModal}/>
                     <div css={tw`mt-6 flex sm:justify-end`}>
                         <Can action={'schedule.delete'}>
                             <DeleteScheduleButton
@@ -161,7 +155,7 @@ export default () => {
                                 onDeleted={() => history.push(`/server/${id}/schedules`)}
                             />
                         </Can>
-                        {schedule.isActive && schedule.tasks.length > 0 &&
+                        {schedule.tasks.length > 0 &&
                         <Can action={'schedule.update'}>
                             <RunScheduleButton schedule={schedule}/>
                         </Can>

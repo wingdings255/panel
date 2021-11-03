@@ -21,6 +21,8 @@ I would like to extend my sincere thanks to the following sponsors for helping f
 | Company | About |
 | ------- | ----- |
 | [**WISP**](https://wisp.gg) | Extra features. |
+| [**MixmlHosting**](https://mixmlhosting.com) | MixmlHosting provides high quality Virtual Private Servers along with game servers, all at a affordable price. |
+| [**BisectHosting**](https://www.bisecthosting.com/) | BisectHosting provides Minecraft, Valheim and other server hosting services with the highest reliability and lightning fast support since 2012. |
 | [**Bloom.host**](https://bloom.host) | Bloom.host offers dedicated core VPS and Minecraft hosting with Ryzen 9 processors. With owned-hardware, we offer truly unbeatable prices on high-performance hosting. |
 | [**MineStrator**](https://minestrator.com/) | Looking for a French highend hosting company for you minecraft server? More than 14,000 members on our discord, trust us. |
 | [**DedicatedMC**](https://dedicatedmc.io/) | DedicatedMC provides Raw Power hosting at affordable pricing, making sure to never compromise on your performance and giving you the best performance money can buy. |
@@ -30,8 +32,11 @@ I would like to extend my sincere thanks to the following sponsors for helping f
 | [**Spill Hosting**](https://spillhosting.no/) | Spill Hosting is a Norwegian hosting service, which aims for inexpensive services on quality servers. Premium i9-9900K processors will run your game like a dream. |
 | [**DeinServerHost**](https://deinserverhost.de/) | DeinServerHost offers Dedicated, vps and Gameservers for many popular Games like Minecraft and Rust in Germany since 2013. |
 | [**HostBend**](https://hostbend.com/) | HostBend offers a variety of solutions for developers, students, and others who have a tight budget but don't want to compromise quality and support. |
-| [**Capitol Hosting Solutions**](https://capitolsolutions.cloud/) | CHS is *the* budget friendly hosting company for Australian and American gamers, offering a variety of plans from Web Hosting to Game Servers; Custom Solutions too! |
+| [**Capitol Hosting Solutions**](https://chs.gg/) | CHS is *the* budget friendly hosting company for Australian and American gamers, offering a variety of plans from Web Hosting to Game Servers; Custom Solutions too! |
 | [**ByteAnia**](https://byteania.com/?utm_source=pterodactyl) | ByteAnia offers the best performing and most affordable **Ryzen 5000 Series hosting** on the market for *unbeatable prices*! |
+| [**Aussie Server Hosts**](https://aussieserverhosts.com/) | No frills Australian Owned and operated High Performance Server hosting for some of the most demanding games serving Australia and New Zealand. |
+| [**VibeGAMES**](https://vibegames.net/) | VibeGAMES is a game server provider that specializes in DDOS protection for the games we offer. We have multiple locations in the US, Brazil, France, Germany, Singapore, Australia and South Africa.|
+| [**RocketNode**](https://rocketnode.net) | RocketNode is a VPS and Game Server provider that offers the best performing VPS and Game hosting Solutions at affordable prices! |
 
 ## Documentation
 * [Panel Documentation](https://pterodactyl.io/panel/1.0/getting_started.html)
@@ -62,7 +67,6 @@ and there are plenty more games available provided by the community. Some of the
 * San Andreas: MP
 * Pocketmine MP
 * Squad
-* FiveM
 * Xonotic
 * Starmade
 * Discord ATLBot, and most other Node.js/Python discord bots

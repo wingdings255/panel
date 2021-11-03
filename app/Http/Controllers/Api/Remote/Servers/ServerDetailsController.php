@@ -93,7 +93,6 @@ class ServerDetailsController extends Controller
      * do not get incorrectly stuck in installing/restoring from backup states since
      * a Wings reboot would completely stop those processes.
      *
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      *
      * @throws \Throwable
@@ -111,7 +110,7 @@ class ServerDetailsController extends Controller
         /** @var \Pterodactyl\Models\Server[] $servers */
         $servers = Server::query()
             ->select('servers.*')
-            ->selectRaw('started.metadata->>"$.backup_uuid" as backup_uuid')
+            ->selectRaw('JSON_UNQUOTE(JSON_EXTRACT(started.metadata, "$.backup_uuid")) as backup_uuid')
             ->leftJoinSub(function (Builder $builder) {
                 $builder->select('*')->from('audit_logs')
                     ->where('action', AuditLog::SERVER__BACKUP_RESTORE_STARTED)
